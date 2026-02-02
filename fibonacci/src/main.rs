@@ -16,24 +16,26 @@ fn main() {
             .parse()
             .expect("Invalid number received");
 
-    println!("Value after parsing is: {}", number);
-    println!("The {}th Fibonacci number is: {:#?}", number, fib(number));
+    match fib(number) {
+        Ok(value) => println!("The {}th Fibonacci number is: {:#?}", number, value),
+        Err(err) => eprintln!("Error: {}", err),
+
+    }
 }
 
-// TODO: Find out if there's a way to include optional return like in js
-fn fib(n: i64) -> Option<i64> {
+fn fib(n: i64) -> Result<i64, String> {
     if n < 0 {
-        return None;
+        return Err("Fibonnaci is not implemented for negative numbers".to_string());
     }
 
     match n {
-        0 => Some(0),
-        1 => Some(1),
+        0 => Ok(0),
+        1 => Ok(1),
         _ => {
-            match (fib(n-1), fib(n-2)) {
-                (Some(a), Some(b)) => Some(a+b),
-                _ => None,
-            }
+            let a = fib(n-1)?;
+            let b = fib(n-2)?;
+
+            Ok(a+b)
         }
-    };
+    }
 }
