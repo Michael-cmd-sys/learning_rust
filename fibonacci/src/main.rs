@@ -9,7 +9,7 @@ fn main() {
     println!("Enter the nth number of the fibonacci sequence\n that you want to find: ");
     io::stdin()
         .read_line(&mut number)
-        .expect("Enter a valid numver");
+        .expect("Enter a valid number");
     
     let number: i64 = number
             .trim()
